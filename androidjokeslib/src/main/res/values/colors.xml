@@ -1,0 +1,8 @@
+<resources>
+    <color name="light_blue">#00bbd2</color>
+    <color name="dark_blue">#0097a7</color>
+    <color name="yellow">#eeff41</color>
+    <color name="yellow_clicked">#50eeff41</color>
+    <color name="white">#fafafa</color>
+    <color name="dark_grey">#6d6d6d</color>
+</resources>
