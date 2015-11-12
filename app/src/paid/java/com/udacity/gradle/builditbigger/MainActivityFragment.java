@@ -39,6 +39,7 @@ public class MainActivityFragment extends Fragment implements JokesAsyncTaskComp
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 task.execute();
             }
         });
@@ -47,6 +48,9 @@ public class MainActivityFragment extends Fragment implements JokesAsyncTaskComp
     }
 
     public void onResult(String joke){
+        if(progressBar != null){
+            progressBar.setVisibility(View.GONE);
+        }
         Intent mIntent = new Intent(getActivity(), DisplayJokesActivity.class);
         mIntent.putExtra("joke", joke);
         getActivity().startActivity(mIntent);
