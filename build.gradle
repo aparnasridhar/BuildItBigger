@@ -18,9 +18,9 @@ allprojects {
     }
 }
 
-tasks.getByPath(':app:connectedAndroidTest').mustRunAfter(':backend:appengineRun')
-tasks.getByPath(':backend:appengineStop').mustRunAfter(':app:connectedAndroidTest')
+tasks.getByPath(':app:connectedCheck').mustRunAfter(':backend:appengineRun')
+tasks.getByPath(':backend:appengineStop').mustRunAfter(':app:connectedCheck')
 
 task runTestsLocaly {
-    dependsOn = [':backend:appengineRun',':app:connectedAndroidTest',':backend:appengineStop' ]
+    dependsOn = [':backend:appengineRun',':app:connectedCheck',':backend:appengineStop' ]
 }
