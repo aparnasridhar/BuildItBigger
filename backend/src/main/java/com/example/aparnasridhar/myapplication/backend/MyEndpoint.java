@@ -41,7 +41,7 @@ public class MyEndpoint {
     /**
      * A simple endpoint method that returns a joke from the java library
      */
-    @ApiMethod(name = "getJoke", httpMethod = "post", path="getJoke")
+    @ApiMethod(name = "getJoke")
     public MyBean getJoke() {
         MyBean response = new MyBean();
 
