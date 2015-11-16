@@ -17,11 +17,10 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 //Project Number 878058630724
-//API Key AIzaSyAYHPM-VUe8MqZ4vMJ3TKvSrzSaM3y1CFE
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements JokesAsyncTaskCompletionListener {
+public class MainActivityFragment extends Fragment implements JokesAsyncTaskCompletionListener,View.OnClickListener {
 
     //Based on http://www.tutorialspoint.com/android/android_loading_spinner.htm
     ProgressBar progressBar;
@@ -59,23 +58,8 @@ public class MainActivityFragment extends Fragment implements JokesAsyncTaskComp
 
         //Launch the GCE when the jokes button is clicked
         Button jokeButton = (Button)root.findViewById(R.id.jokeButton);
-        jokeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-
-                } else {
-                    progressBar.setVisibility(View.VISIBLE);
-                    if(task.getStatus() !=  AsyncTask.Status.RUNNING) {
-                        task.execute();
-                    }
-                }
-
-            }
-        });
+        jokeButton.setOnClickListener(this);
         requestNewInterstitial();
-
 
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -102,4 +86,16 @@ public class MainActivityFragment extends Fragment implements JokesAsyncTaskComp
         getActivity().startActivity(mIntent);
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.jokeButton){
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+
+            } else {
+                progressBar.setVisibility(View.VISIBLE);
+                new JokesAsyncTask(this).execute();
+            }
+        }
+    }
 }

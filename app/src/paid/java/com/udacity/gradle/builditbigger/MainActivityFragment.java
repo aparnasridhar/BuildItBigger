@@ -12,11 +12,10 @@ import android.widget.ProgressBar;
 import com.coderbloc.aparnasridhar.androidjokeslib.DisplayJokesActivity;
 
 //Project Number 878058630724
-//API Key AIzaSyAYHPM-VUe8MqZ4vMJ3TKvSrzSaM3y1CFE
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements JokesAsyncTaskCompletionListener {
+public class MainActivityFragment extends Fragment implements JokesAsyncTaskCompletionListener,View.OnClickListener {
 
     //Based on http://www.tutorialspoint.com/android/android_loading_spinner.htm
     ProgressBar progressBar;
@@ -32,18 +31,10 @@ public class MainActivityFragment extends Fragment implements JokesAsyncTaskComp
         //Progress bar when the joke loads
         progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-        final JokesAsyncTask task = new JokesAsyncTask(this);
 
         //Launch the GCE when the jokes button is clicked
         Button jokeButton = (Button)root.findViewById(R.id.jokeButton);
-        jokeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                task.execute();
-            }
-        });
-
+        jokeButton.setOnClickListener(this);
         return root;
     }
 
@@ -56,4 +47,11 @@ public class MainActivityFragment extends Fragment implements JokesAsyncTaskComp
         getActivity().startActivity(mIntent);
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.jokeButton){
+            progressBar.setVisibility(View.VISIBLE);
+            new JokesAsyncTask(this).execute();
+        }
+    }
 }
